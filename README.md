@@ -84,7 +84,7 @@ file from the 'path'。
      
      System.uninstall(obj);//no callback ,the files will be uninstalled right now! 
  ```
-##System.getReadyVersion() && System.on("ready",version,function(){})
+##System.getReadyVersion() && System.on("ready",version,callback)
  
  System.getReadyVersion()将返回未注册的ready事件的版本，加版本是为了避免激发其他的回调函数.
  
