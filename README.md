@@ -1,9 +1,9 @@
 # system.js
 一个浏览器端流程控制框架
- ### System
+### System
  
- ## System.config()
- '''js
+## System.config()
+'''js
     var config={
   	"defaultSourceDir":"./", 
 	 "scriptSubDirname":"js", 
@@ -11,7 +11,7 @@
   "globalScript":[{"name":"jquery-1.8.3.min.js","path":"http://code.jquery.com/jquery-1.8.3.min.js"},{"name":"test1.js"}],
   	"globalCss":[{"name":"test1.css"}]
    };
-   '''bash
+'''bash
   if there are  "<script type='text/javascript' src='./public/js/filename.js'></script>" or "<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before, Now you just need to set defaultSourceDir as './public/' ,set scriptSubDirname as 'js' and set cssSubDirname as "css".
    
    the globalScript and globalCss are alternative. if there is a path attribute , then the System will try to get the file from the path。
