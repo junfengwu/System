@@ -64,7 +64,7 @@ file from the 'path'。
        console.log("Resource has already been loaded! You can do your things safely now.");
     });
  ```
- ##System.uninstall()
+##System.uninstall()
  卸载配置文件
  
  uninstall configuration files
@@ -78,7 +78,7 @@ file from the 'path'。
      
      System.uninstall(obj);//no callback ,the files will be uninstalled right now! 
  ```
- ##System.getReadyVersion() && System.on("ready",version,function(){})
+##System.getReadyVersion() && System.on("ready",version,function(){})
  
  System.getReadyVersion()将返回未注册的ready事件的版本，加版本是为了避免激发其他的回调函数.
  
@@ -86,7 +86,7 @@ file from the 'path'。
  
  System.getReadyVersion() will return the version of the 'ready' event which is not registed yet. And each version only be allowed to monitor for once.
  
- ##System.on(eventName,callback) && System.emit(eventName,Args)
+##System.on(eventName,callback) && System.emit(eventName,Args)
  ```js
      //let's do it safely :)
      System.on("ready",v1,function(){
@@ -111,7 +111,7 @@ file from the 'path'。
         
      });
  ```
- ##System.waterFall()
+##System.waterFall()
  ```js
       var water_fall=System.waterFall();//the first step
       
@@ -148,7 +148,7 @@ file from the 'path'。
      */
       
  ```
- ##System.setKey(name,value) && System.getKey(name)&&System.removeKey(name)
+##System.setKey(name,value) && System.getKey(name)&&System.removeKey(name)
  ```js
      System.setKey("name","Jason Zheng");
      
@@ -165,7 +165,7 @@ file from the 'path'。
      */
      
  ```
- ##System.sessionStorage.setItem(name,value) && System.sessionStorage.getItem(name) && System.sessionStorage.removeItem(name)
+##System.sessionStorage.setItem(name,value) && System.sessionStorage.getItem(name) && System.sessionStorage.removeItem(name)
  
  功能和window.sessionStorage一样，只是做了兼容性
  
