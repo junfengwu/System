@@ -12,8 +12,8 @@
   	 "globalCss":[{"name":"test1.css"}]
    };
 ```
-  if there are  "<script type='text/javascript' src='./public/js/filename.js'></script>" 
-  or "<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before,
+  if there are  "\<script type='text/javascript' src='./public/js/filename.js'></script>" 
+  or "\<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before,
   Now you just need to set defaultSourceDir as './public/' ,set scriptSubDirname as 'js' and set cssSubDirname as "css".
    
    the globalScript and globalCss are alternative. if there is a path attribute , then the System will try to get the
