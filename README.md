@@ -41,6 +41,7 @@ file from the 'path'。
  
  ```js
     var v2=System.getReadyVersion();
+    
     System.install("test2.js",v2);
     System.install("test2.css",v2);
     System.install("test3.css",v2);
@@ -48,9 +49,13 @@ file from the 'path'。
     System.on("ready",v2,function(){
       console.log("Resource has already been loaded!You can do your things safely now.");
     ])
+    
     //or
+    
     var v2=System.getReadyVersion();
+    
     var obj=[{"name":"test2.js"},{"name":"test2.css"},{"test3.css"}];
+    
     System.install(obj,v2).on("ready",v2,function(){
        console.log("Resource has already been loaded! You can do your things safely now.");
     });
