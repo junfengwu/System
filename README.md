@@ -37,7 +37,11 @@ file from the 'path'。
 ##System.install()
  安装配置文件
  
+ 我们需要一个版本号用来标识这次的安装，在on('ready'）时也传入相应的版本号，使其关联起来
+ 
  install configuration files
+ 
+ when install file,we need a version to distinguish from other 'install' operations
  
  ```js
     var v2=System.getReadyVersion();
@@ -60,17 +64,123 @@ file from the 'path'。
        console.log("Resource has already been loaded! You can do your things safely now.");
     });
  ```
-描述：
-最近开发一个项目时，发现在结构控制上很令人头疼，乱七八糟的代码事后去看完全找不到头绪.最后写了一个driver.js由于整个网站的工作流程
-控制，现在将其一般化，以便在以后的项目中应用。
+ ##System.uninstall()
+ 卸载配置文件
+ 
+ uninstall configuration files
+ ```js
+     System.uninstall("test1.js");
+     System.uninstall("test2.css");
+     
+     //or
+     
+     var obj=["test1.js","test2.css"];
+     
+     System.uninstall(obj);//no callback ,the files will be uninstalled right now! 
+ ```
+ ##System.getReadyVersion() && System.on("ready",version,function(){})
+ 
+ System.getReadyVersion()将返回未注册的ready事件的版本，加版本是为了避免激发其他的回调函数.
+ 
+ 'ready' 事件是一个系统特殊对待的事件，每次监听时都需要传递俩个参数，一个是版本号，一个是回调函数，而且同一个版本号只允许监听一次
+ 
+ System.getReadyVersion() will return the version of the 'ready' event which is not registed yet. And each version only be allowed to monitor for once.
+ 
+ ##System.on(eventName,callback) && System.emit(eventName,Args)
+ ```js
+     //let's do it safely :)
+     System.on("ready",v1,function(){
+     
+        System.on("event1",function(message){
+          console.log(message)
+        });
+        
+        setTimeout(function(){
+           System.emit("event1","hello world!");
+        },1000);
+        
+        //we regist the event in 'v1 ready' ,we can emit it in another 'ready' event's callback with different version
+        System.on("event2",function(m){
+            console.log(m);
+        })
+     });
+     
+     System.on("ready",v2,function(){
+        
+        System.emit("event2","we can communicate! :)"); 
+        
+     });
+ ```
+ ##System.waterFall()
+ ```js
+      var water_fall=System.waterFall();//the first step
+      
+      funciton cb(m)
+      {
+       setTimeout(function(){
+        console.log(m);
+        water_fall.next(m+1);//important!!! 
+       },m%2*300);
+      };
+      
+     var funcs=[];
+     for(var i=0;i<6;i++)
+        funcs.push(cb);
+        
+     //the second step();
+     water_fall.regist(funcs,function(n){
+        console.log("End at :"+n);
+     });
+     
+     water_fall.fire(0);//the last step
+     
+     /*
+       result:
+         0
+         1
+         2
+         3
+         4
+         5
+         End at :6
+         
+         this mean that the functions will be executed one by one.
+     */
+      
+ ```
+ ##System.setKey(name,value) && System.getKey(name)&&System.removeKey(name)
+ ```js
+     System.setKey("name","Jason Zheng");
+     
+     System.getKey("name");//return "Jason Zheng"
+     
+     System.removeKey("name");
+     
+     System.getKey("name");//undefined
+     
+     /*note :
+     
+        when the page was refreshed ,all the key will lost
+        
+     */
+     
+ ```
+ ##System.sessionStorage.setItem(name,value) && System.sessionStorage.getItem(name) && System.sessionStorage.removeItem(name)
+ 
+ 功能和window.sessionStorage一样，只是做了兼容性
+ 
+ the same with window.sessionStorage,but it works in IE
+ ##System.post(json,url,callback) && System.get(url,callback)
+ Ajax
+ ```bash
+ System.post()发送的是JSON格式的数据，送给callback的也是JSON格式的数据，服务器那边要注意一下，不要把格式弄错了
+ 
+ System.get(),送给callback的也是JSON格式的数据
+ 
+ the format of all data is JSON
+ ```
 
-Description:
-In my recent personal project, I find it is difficult to control the structure of the whole project. In order to make the structure more  simple and clear, I wrote
-a script named driver.js to  solve it. Now for the purpose of other project in the future,abstract it as system.js.  At the same time ,hope it  is helpful to you! And any
-advice is welcome.:)
 
-
-Copyright(c) 2015 Jason Zheng
-
+###Licensed
 MIT Licensed
- **/
+Copyright(c) 2015 Jason Zheng
