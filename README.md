@@ -1,8 +1,8 @@
 # system.js
 一个浏览器端流程控制框架
- ###System
+ ### System
  
- ##System.config()
+ ## System.config()
  '''js
     var config={
   	"defaultSourceDir":"./", 
