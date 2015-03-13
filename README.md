@@ -25,9 +25,14 @@
 ‘globalScrip’和‘globalCss’是俩个可选的参数，顾名思义，即设置全局依赖文件。一旦System.config(config)被调用，这些文件将按顺序加载，如果对某个文件设置了path属性，将从这个path加载资源，而不是从默认目录加载资源。参数设置的格式如上所示，System.config()函数只能调用一次。再次调用会覆盖之前设置的参数。
 
 ```bash
+
 注意：
 
-   配置文件的加载和浏览器对文档的解析是异步的。可能由于网络原因，当文档解析完成后，相应的配置文件还没有加载完成,势必造成很坏的用户体验。解决办法是在系统激发'ready'事件后再将内容加到页面中去。不禁要问，既然如此，为什么还这样做。个人认为哈，这样会让前端开发更为清晰，利于工程模块化，同时使整个项目的过程控制更加明了。
+   配置文件的加载和浏览器对文档的解析是异步的。可能由于网络原因，当文档解析完成后，相应的配置文件还没有加载完成,势必造成很坏
+   
+   的用户体验。解决办法是在系统激发'ready'事件后再将内容加到页面中去。不禁要问，既然如此，为什么还这样做。个人认为哈，这样会
+   
+   让前端开发更为清晰，利于工程模块化，同时使整个项目的过程控制更加明了。
 ```  
  if there are  "\<script type='text/javascript' src='./public/js/filename.js'></script>"  or "\<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before,Now you just need to set 'defaultSourceDir' as './public/' ,set 'scriptSubDirname' as 'js' and set 'cssSubDirname' as "css".
 
@@ -167,11 +172,11 @@ file from the 'path'。
      
  ```
 ##System.sessionStorage.setItem(name,value) && System.sessionStorage.getItem(name) && System.sessionStorage.removeItem(name)
- 
+```bash
  功能和window.sessionStorage一样，只是做了兼容性
  
  the same with window.sessionStorage,but it works in IE
- 
+```
 ##System.post(json,url,callback) && System.get(url,callback)
  Ajax
  ```bash
