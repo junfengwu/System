@@ -11,7 +11,7 @@
        "globalScript":[{"name":"jquery-1.8.3.min.js","path":"http://code.jquery.com/jquery-1.8.3.min.js"},{"name":"test1.js"}],
   	 "globalCss":[{"name":"test1.css"}]
    };
-/*
+```
   if there are  "<script type='text/javascript' src='./public/js/filename.js'></script>" 
   or "<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before,
   Now you just need to set defaultSourceDir as './public/' ,set scriptSubDirname as 'js' and set cssSubDirname as "css".
@@ -22,8 +22,7 @@
    But there are something different, that is the browser will try to parse the DOM even if some file is not ready,
    such as css file. It will make a  terrible user experience.
    the method to solve this is add content to the page after the 'ready' event is emitted.(System.on("ready",version,callback))
-   */
-```
+ 
 描述：
 最近开发一个项目时，发现在结构控制上很令人头疼，乱七八糟的代码事后去看完全找不到头绪.最后写了一个driver.js由于整个网站的工作流程
 控制，现在将其一般化，以便在以后的项目中应用。
