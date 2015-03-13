@@ -170,7 +170,8 @@ file from the 'path'。
  功能和window.sessionStorage一样，只是做了兼容性
  
  the same with window.sessionStorage,but it works in IE
- ##System.post(json,url,callback) && System.get(url,callback)
+ 
+##System.post(json,url,callback) && System.get(url,callback)
  Ajax
  ```bash
  System.post()发送的是JSON格式的数据，送给callback的也是JSON格式的数据，服务器那边要注意一下，不要把格式弄错了
