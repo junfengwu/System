@@ -11,6 +11,7 @@
   "globalScript":[{"name":"jquery-1.8.3.min.js","path":"http://code.jquery.com/jquery-1.8.3.min.js"},{"name":"test1.js"}],
   	"globalCss":[{"name":"test1.css"}]
    };
+'''
 '''bash
   if there are  "<script type='text/javascript' src='./public/js/filename.js'></script>" or "<link rel='styleSheet'  type='text/css' href='./public/css/filename.css'/>" in the 'head' htmlElement before, Now you just need to set defaultSourceDir as './public/' ,set scriptSubDirname as 'js' and set cssSubDirname as "css".
    
