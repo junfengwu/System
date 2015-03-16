@@ -207,9 +207,13 @@ file from the 'path'。
        console.log("work well");
      });
      //.......
-     // 1 是c1的传入参数，2是c2的传入参数，3是c3的传入参数，c1,c2,c3中的task这个参数是all这个对象传送的，并在函数体内调用
-     //task.ok()表明这个函数执行结束
-     //the number '1' is the argument of c1. '2' is the argument of c2,'3' is the argument of c3.
+     
+     
+     // 1 是c1的传入参数，2是c2的传入参数，3是c3的传入参数，c1,c2,c3中的task这个参数是all这个对象传送的，并在函数体内
+     //调用task.ok()表明这个函数执行结束
+     //the number '1' is the argument of c1. '2' is the argument of c2,'3' is the argument of c3. the 'task' is an Object 
+     //which is the 'all' Object pass to the function. and the method "task.ok()" must be executed by yourself,which means
+     //the function  finishs executing .when all the functions are done ,the callback will be executed.
      
      /*
         the result is:
