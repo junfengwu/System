@@ -17,10 +17,10 @@ A tool to control the process in the browser side.
  
  一旦引用system.js将生成一个全局对象:System。
  
- 这个对象可以让你使用事件回调机制来对整个网站进行管理，事件为自定义事件，其中system_alert是对象自有事件不可注册，‘ready’事件是一个特殊事件，可以监听，但不可以手动激发。
+ 这个对象可以让你使用事件回调机制来对整个网站进行管理，事件为自定义事件，其中system_alert是对象自有事件,不可注册，‘ready’事件是一个特殊事件，可以监听，但不可以手动激发。
  
   除了事件机制，还提供waterFall和whenAllDone俩个对象用来处理具有时延的操作，waterFall也可以用来强制一系列操作顺序执行。
-  System.config(),System.install(),方法是用于安装配置文件的，需要和System.on("ready",version,callback)一起使用以确保当依赖文件加载完成才继续后面的操作。另外还有几个辅助方法。
+  System.config(),System.install(),俩个方法是用于安装配置文件，需要和System.on("ready",version,callback)一起使用，以确保依赖文件加载完成才继续后面的操作。另外还有几个辅助方法。
   ```bash
   
   ```
