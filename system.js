@@ -183,6 +183,9 @@ var config = {
 		waterFall : function () {
 			return new Async();
 		},
+		whenAllDone:function(){
+			return new AllDone();
+		},
 		post : Post,
 		get : Get,
 		config : function (tar) {
@@ -453,6 +456,78 @@ var config = {
 	Async.prototype.fire = function (args) {
 		this.next(args);
 	}
+
+	
+function AllDone() {
+	this.actions = [];
+	this.todo = [];
+	this.arg = [];
+}
+
+AllDone.prototype = {
+	when : function () {
+		var self = this;
+		if (Array.isArray(arguments[0])) {
+			self.todo = arguments[0];
+		} else {
+			for (var i = 0; i < arguments.length; i++) {
+				if ((typeof arguments[i]).toLowerCase() == "function") {
+					self.todo.push(arguments[i]);
+				} else {
+					console.log("AllDone :Illegal armuments!");
+					return false;
+				}
+			}
+		}
+		return self;
+	},
+	args : function (args) {
+		var self = this;
+		if (Array.isArray(args)) {
+			self.arg = args;
+		} else {
+			self.arg = arguments;
+		}
+		return self; ;
+	},
+	done : function (callback) {
+		this.cb = callback;
+		var self = this;
+		function checkComplete() {
+			var flag = true;
+			for (var i = 0; i < self.actions.length; ++i) {
+				flag = flag && self.actions[i].done;
+				if (!flag) {
+					break;
+				}
+			}
+			if (flag) {
+				self.cb();
+			}
+			return;
+		}
+
+		function Action(id) {
+			this.done = false;
+			this.id = id;
+			this.ok = function () {
+				this.done = true;
+				checkComplete();
+				return;
+			};
+		};
+
+		for (var i = 0; i < self.todo.length; i++) {
+			var ac = new Action(i);
+			self.actions.push(ac);
+			if (self.arg[i]) {
+				self.todo[i](ac, self.arg[i]);
+			} else {
+				self.todo[i](ac);
+			}
+		}
+	}
+}
 
 	function FTBStorage() //定义一个通用的临时性存储方式ForTimeBeingStorge()，
 	{

@@ -1,23 +1,23 @@
 /**
-×é¼şÃû:  system
+ç»„ä»¶å:  system
 
 Module name: system
 
-°æ±¾£º0.0.1
+ç‰ˆæœ¬ï¼š0.0.1
 
 Version: 0.0.1
 
-×÷Õß:Ö£½Ü
+ä½œè€…:éƒ‘æ°
 
 Author :Jason Zheng
 
-ÓÊÏä: zjliufeng@foxmail.com
+é‚®ç®±: zjliufeng@foxmail.com
 
 E-mail: zjliufeng@foxmail.com
 
-ÃèÊö£º
-×î½ü¿ª·¢Ò»¸öÏîÄ¿Ê±£¬·¢ÏÖÔÚ½á¹¹¿ØÖÆÉÏºÜÁîÈËÍ·ÌÛ£¬ÂÒÆß°ËÔãµÄ´úÂëÊÂºóÈ¥¿´ÍêÈ«ÕÒ²»µ½Í·Ğ÷.×îºóĞ´ÁËÒ»¸ödriver.jsÓÉÓÚÕû¸öÍøÕ¾µÄ¹¤×÷Á÷³Ì
-¿ØÖÆ£¬ÏÖÔÚ½«ÆäÒ»°ã»¯£¬ÒÔ±ãÔÚÒÔºóµÄÏîÄ¿ÖĞÓ¦ÓÃ¡£
+æè¿°ï¼š
+æœ€è¿‘å¼€å‘ä¸€ä¸ªé¡¹ç›®æ—¶ï¼Œå‘ç°åœ¨ç»“æ„æ§åˆ¶ä¸Šå¾ˆä»¤äººå¤´ç–¼ï¼Œä¹±ä¸ƒå…«ç³Ÿçš„ä»£ç äº‹åå»çœ‹å®Œå…¨æ‰¾ä¸åˆ°å¤´ç»ª.æœ€åå†™äº†ä¸€ä¸ªdriver.jsç”±äºæ•´ä¸ªç½‘ç«™çš„å·¥ä½œæµç¨‹
+æ§åˆ¶ï¼Œç°åœ¨å°†å…¶ä¸€èˆ¬åŒ–ï¼Œä»¥ä¾¿åœ¨ä»¥åçš„é¡¹ç›®ä¸­åº”ç”¨ã€‚
 
 Description:
 In my recent personal project, I find it is difficult to control the structure of the whole project. In order to make the structure more  simple and clear, I wrote
@@ -68,7 +68,7 @@ var config = {
 				"defaultScriptDir" : "",
 				"defaultCssDir" : ""
 			};
-			this.resourcePackage = []; //element schema {"name":"","existed":"","path":"","version":""}Èç¹ûÓĞpathÕâ¸öÊôĞÔµÄ»°£¬Ôò²»´ÓÄ¬ÈÏÂ·¾¶¼ÓÔØ×ÊÔ´£¬¸ÄÎª´Ópath
+			this.resourcePackage = []; //element schema {"name":"","existed":"","path":"","version":""}å¦‚æœæœ‰pathè¿™ä¸ªå±æ€§çš„è¯ï¼Œåˆ™ä¸ä»é»˜è®¤è·¯å¾„åŠ è½½èµ„æºï¼Œæ”¹ä¸ºä»path
 			this.globalSourceLoaded = false;
 			this.loadEvent();
 		},
@@ -182,6 +182,9 @@ var config = {
 		},
 		waterFall : function () {
 			return new Async();
+		},
+		whenAllDone:function(){
+			return new AllDone();
 		},
 		post : Post,
 		get : Get,
@@ -454,10 +457,82 @@ var config = {
 		this.next(args);
 	}
 
-	function FTBStorage() //¶¨ÒåÒ»¸öÍ¨ÓÃµÄÁÙÊ±ĞÔ´æ´¢·½Ê½ForTimeBeingStorge()£¬
+	
+function AllDone() {
+	this.actions = [];
+	this.todo = [];
+	this.arg = [];
+}
+
+AllDone.prototype = {
+	when : function () {
+		var self = this;
+		if (Array.isArray(arguments[0])) {
+			self.todo = arguments[0];
+		} else {
+			for (var i = 0; i < arguments.length; i++) {
+				if ((typeof arguments[i]).toLowerCase() == "function") {
+					self.todo.push(arguments[i]);
+				} else {
+					console.log("AllDone :Illegal armuments!");
+					return false;
+				}
+			}
+		}
+		return self;
+	},
+	args : function (args) {
+		var self = this;
+		if (Array.isArray(args)) {
+			self.arg = args;
+		} else {
+			self.arg = arguments;
+		}
+		return self; ;
+	},
+	done : function (callback) {
+		this.cb = callback;
+		var self = this;
+		function checkComplete() {
+			var flag = true;
+			for (var i = 0; i < self.actions.length; ++i) {
+				flag = flag && self.actions[i].done;
+				if (!flag) {
+					break;
+				}
+			}
+			if (flag) {
+				self.cb();
+			}
+			return;
+		}
+
+		function Action(id) {
+			this.done = false;
+			this.id = id;
+			this.ok = function () {
+				this.done = true;
+				checkComplete();
+				return;
+			};
+		};
+
+		for (var i = 0; i < self.todo.length; i++) {
+			var ac = new Action(i);
+			self.actions.push(ac);
+			if (self.arg[i]) {
+				self.todo[i](ac, self.arg[i]);
+			} else {
+				self.todo[i](ac);
+			}
+		}
+	}
+}
+
+	function FTBStorage() //å®šä¹‰ä¸€ä¸ªé€šç”¨çš„ä¸´æ—¶æ€§å­˜å‚¨æ–¹å¼ForTimeBeingStorge()ï¼Œ
 	{
 		if (window.sessionStorage) {}
-		else { //code For IE µ±´°¿Ú¹Ø±ÕÊ±Çå³ı´æ´¢µÄÖµ
+		else { //code For IE å½“çª—å£å…³é—­æ—¶æ¸…é™¤å­˜å‚¨çš„å€¼
 			window.onunload = function () {
 				var str = document.cookie.split(";");
 				for (var i = 0; i < str.length; i++) {
@@ -503,13 +578,13 @@ var config = {
 			}
 		request.onreadystatechange = function () {
 			if (request.readyState === 4 && request.status === 200) {
-				var response = JSON.parse(request.responseText); //½âÎöµÇÂ½ĞÅÏ¢
+				var response = JSON.parse(request.responseText); //è§£æç™»é™†ä¿¡æ¯
 				if (callback)
 					callback(response);
 
 			}
 		}
-		request.open('POST', url); //urlÎ´ÌîĞ´
+		request.open('POST', url); //urlæœªå¡«å†™
 		request.setRequestHeader("Content-Type", "application/json");
 		request.send(JSON.stringify(json));
 	};
@@ -588,5 +663,3 @@ var config = {
 	};
 	w.System = new System();
 })(window)
-
- 
