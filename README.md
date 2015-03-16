@@ -150,11 +150,11 @@ file from the 'path'。
          5
          End at :6
          
-         this mean that the functions will be executed one by one.
+         this mean that the functions will be executed one by one.when last one is done,the callback will be executed.
      */
       
  ```
- ##System.whenAllDone()
+##System.whenAllDone()
  
    当我们有几个操作有时延，不能确保什么时候完成，而我们又需要等到他们确切完成时才能进行下面的操作，那我们就可以使用这个方法。
    下面是示例。与waterFall不同的是这里注册的操作将被同步执行而不是一个接一个
