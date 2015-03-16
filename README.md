@@ -154,6 +154,74 @@ file from the 'path'。
      */
       
  ```
+ ##System.whenAllDone()
+ 
+   当我们有几个操作有时延，不能确保什么时候完成，而我们又需要等到他们确切完成时才能进行下面的操作，那我们就可以使用这个方法。
+   下面是示例。与waterFall不同的是这里注册的操作将被同步执行而不是一个接一个
+   
+ 
+ ```js
+     var all=System.whenAllDone();
+     
+     function c1(task,args)
+       {
+         setTimeout(function(){
+         console.log(args);
+         task.ok();//important!!!!
+         },300);
+       };
+     function c2(task,args)
+     {
+        setTimeout(function(){
+        console.log(args);
+        task.ok();//important!!!
+        },400);
+     };
+     function c3(task,args)
+     {
+        setTimeout(function(){
+         console.log(args);
+         task.ok();//important!!!
+        },100);
+     };
+     
+     all.when([c1,c2,c3]).args([1,2,3]).done(function(){
+       console.log("work well!");
+     });
+     
+     //or 
+     
+     all.args([1,2,3]).when([c1,c2,c3]).done(function(){
+       console.log("work well");
+     });
+     
+     //or
+    
+     all.when(c1,c2,c3).args(1,2,3).done(function(){
+       console.log("work well");
+     };
+     
+     //or
+     
+     all.when(c1,c2,c3).args([1,2,3]).done(function(){
+       console.log("work well");
+     });
+     //.......
+     // 1 是c1的传入参数，2是c2的传入参数，3是c3的传入参数，c1,c2,c3中的task这个参数是all这个对象传送的，并在函数体内调用
+     //task.ok()表明这个函数执行结束
+     //the number '1' is the argument of c1. '2' is the argument of c2,'3' is the argument of c3.
+     
+     /*
+        the result is:
+           3
+           1
+           2
+           work well
+           这样的结果表明回调函数将在c1,c2,c3都执行完之后被调用，但是c1,c2,c3的执行是同步的，不是一个接一个被执行的。
+        this means that the callback will be executed after the functions c1,c2,c3 are done. but c1,c2,c3 is not done one by     one . this is the difference with waterFall Object.
+        
+     */
+ ```
 ##System.setKey(name,value) && System.getKey(name)&&System.removeKey(name)
  ```js
      System.setKey("name","Jason Zheng");
