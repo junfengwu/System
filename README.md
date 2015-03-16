@@ -1,7 +1,34 @@
 # system.js
 一个浏览器端流程控制框架
-### System
+
+A tool to control the process in the browser side.
+```html
+<!DOCTYPE html>
+<html>
+ <head>
+ .....
+ <script type='text/javascript' src='./system.js'></script>
+ <script type='text/javascript' src='./myDriver.js'></script>
+ </head>
+ <body>
+ </body>
+</html>
+```
  
+ 一旦引用system.js将生成一个全局对象:System。
+ 
+ 使用这个对象你可以使用事件回调机制来对整个网站进行管理，事件为自定义事件，其中system_alert是对象自有事件不可注册，‘ready’事件是一个特殊事件，可以监听，但不可以手动激发。
+ 
+  除了事件机制，还提供waterFall和whenAllDone俩个对象用来处理具有时延的操作，waterFall也可以用来强制一系列操作顺序执行。
+  System.config(),System.install(),方法是用于安装配置文件的，需要和System.on("ready",version,callback)一起使用以确保当依赖文件加载完成才继续后面的操作。另外还有几个辅助方法。
+  
+  Once you use the tool ,there will be a global Object:System.which allows you control the process of you website by event callback mechanism.You can define and emit your own event easily .
+  
+  And there are also other methods, such as System.config(),System.install(),you can make your website modular by using there methods.
+  
+  System.waterFall() and System.whenAllDone() are helpful when we deal with some operation width a time delay.
+  
+  
 ## System.config()
 ```js
     var config={
