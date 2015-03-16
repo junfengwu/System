@@ -24,11 +24,11 @@ A tool to control the process in the browser side.
   ```bash
   
   ```
-  Once you use the tool ,there will be a global object : ```js System ```,which allows you control the process of you website by event callback mechanism.You can define and emit your own event easily .
+  Once you use the tool ,there will be a global object : ``` System ```,which allows you control the process of you website by event callback mechanism.You can define and emit your own event easily .
   
-  And there are also other methods, such as ```js System.config()```,```js System.install()```,you can make your website modular by using these methods.
+  And there are also other methods, such as ``` System.config()```,``` System.install()```,you can make your website modular by using these methods.
   
-  ```js System.waterFall()``` and ```js System.whenAllDone()``` are helpful when we deal with some operation width a time delay.
+  ``` System.waterFall()``` and ``` System.whenAllDone()``` are helpful when we deal with some operation width a time delay.
   
   
 ## System.config()
