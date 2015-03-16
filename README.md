@@ -28,7 +28,7 @@ A tool to control the process in the browser side.
   
   And there are also other methods, such as ``` System.config()```,``` System.install()```,you can make your website modular by using these methods.
   
-  ``` System.waterFall()``` and ``` System.whenAllDone()``` are helpful when we deal with some operation width a time delay.
+  ``` System.waterFall()``` and ``` System.whenAllDone()``` are helpful when we deal with some operation with a time delay.
   
   
 ## System.config()
